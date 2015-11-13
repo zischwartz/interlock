@@ -19,6 +19,7 @@ defaults
     timeout connect {{ .PluginConfig.ConnectTimeout }}
     timeout client {{ .PluginConfig.ClientTimeout }}
     timeout server {{ .PluginConfig.ServerTimeout }}
+    timeout tunnel 1h
 
 frontend http-default
     bind *:{{ .PluginConfig.Port }}
@@ -35,7 +36,10 @@ frontend http-default
     {{ range $host := .Hosts }}acl is_{{ $host.Name }} hdr_beg(host) {{ $host.Domain }}
     use_backend {{ $host.Name }} if is_{{ $host.Name }}
     {{ end }}
+    acl is_websocket hdr(Upgrade) -i WebSocket
+    
 {{ range $host := .Hosts }}backend {{ $host.Name }}
+    acl is_websocket hdr(Upgrade) -i WebSocket
     http-response add-header X-Request-Start %Ts.%ms
     balance {{ $host.BalanceAlgorithm }}
     {{ range $option := $host.BackendOptions }}option {{ $option }}
