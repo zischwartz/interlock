@@ -1,7 +1,7 @@
 package example
 
 import (
-	"github.com/getcarina/interlock"
+	"github.com/zischwartz/interlock"
 )
 
 const (
