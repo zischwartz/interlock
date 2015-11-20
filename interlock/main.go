@@ -5,16 +5,16 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/getcarina/interlock/plugins"
-	"github.com/getcarina/interlock/version"
 	"github.com/getcarina/libcarina"
+	"github.com/zischwartz/interlock/plugins"
+	"github.com/zischwartz/interlock/version"
 )
 
 func main() {
 	app := cli.NewApp()
 	app.Name = "interlock"
 	app.Version = version.FullVersion()
-	app.Author = "@rgbkrk"
+	app.Author = "@zischwartz"
 	app.Email = ""
 	app.Usage = "event driven docker plugins"
 	app.Before = func(c *cli.Context) error {

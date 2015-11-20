@@ -5,8 +5,8 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/getcarina/interlock"
 	"github.com/samalba/dockerclient"
+	"github.com/zischwartz/interlock"
 )
 
 var (

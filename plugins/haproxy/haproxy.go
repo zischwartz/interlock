@@ -16,8 +16,8 @@ import (
 	"time"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/getcarina/interlock"
-	"github.com/getcarina/interlock/plugins"
+	"github.com/zischwartz/interlock"
+	"github.com/zischwartz/interlock/plugins"
 	"github.com/samalba/dockerclient"
 )
 
