@@ -16,9 +16,14 @@ defaults
     option dontlognull
     option http-server-close
     option forwardfor
-    timeout connect {{ .PluginConfig.ConnectTimeout }}
-    timeout client {{ .PluginConfig.ClientTimeout }}
-    timeout server {{ .PluginConfig.ServerTimeout }}
+    # timeout connect {{ .PluginConfig.ConnectTimeout }}
+    # timeout client {{ .PluginConfig.ClientTimeout }}
+    # timeout server {{ .PluginConfig.ServerTimeout }}
+    timeout connect 1h
+    timeout client 1h
+    timeout server 1h
+    timeout tunnel 3h    # timeout to use with WebSocket and CONNECT
+
 
 frontend http-default
     bind *:{{ .PluginConfig.Port }}
@@ -42,7 +47,7 @@ frontend http-default
     {{ end }}
     {{ if $host.Check }}option {{ $host.Check }}{{ end }}
     {{ if $host.SSLOnly }}redirect scheme https if !{ ssl_fc  }{{ end }}
-    {{ range $i,$up := $host.Upstreams }}server {{ $up.Container }} {{ $up.Addr }} check inter {{ $up.CheckInterval }}{{ if $host.SSLBackend }} ssl sni req.hdr(Host) verify {{ $host.SSLBackendTLSVerify }}{{ end }}
+    {{ range $i,$up := $host.Upstreams }}server {{ $up.Container }} {{ $up.Addr }} check inter 3600000 {{ if $host.SSLBackend }} ssl sni req.hdr(Host) verify {{ $host.SSLBackendTLSVerify }}{{ end }}
     {{ end }}
 {{ end }}`
 )
